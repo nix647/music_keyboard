@@ -11,16 +11,16 @@ class NoteDef {
 
 /// Left → right order of white keys
 const whiteRow = <NoteDef>[
-  NoteDef('C', 60, KeyColor.white),  // C4
-  NoteDef('D', 62, KeyColor.white),  // D4
-  NoteDef('E', 64, KeyColor.white),  // E4
-  NoteDef('G', 67, KeyColor.white),  // G4
-  NoteDef('A', 69, KeyColor.white),  // A4
-  NoteDef('C', 72, KeyColor.white),  // C5
+  NoteDef('1', 60, KeyColor.white),  // C4
+  NoteDef('2', 62, KeyColor.white),  // D4
+  NoteDef('3', 64, KeyColor.white),  // E4
+  NoteDef('5', 67, KeyColor.white),  // G4
+  NoteDef('6', 69, KeyColor.white),  // A4
+  NoteDef('1\'', 72, KeyColor.white),  // C5
 ];
 
 /// Elevated keys
 const blackKeys = <NoteDef>[
-  NoteDef('F', 65, KeyColor.black, anchor: 2), // after white index 2 (E)
-  NoteDef('B', 71, KeyColor.black, anchor: 4), // after white index 4 (A)
+  NoteDef('4', 65, KeyColor.black, anchor: 2), // after white index 2 (E)
+  NoteDef('7', 71, KeyColor.black, anchor: 4), // after white index 4 (A)
 ];
