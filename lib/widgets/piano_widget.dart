@@ -30,7 +30,7 @@ class _PState extends State<PianoWidget> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   for (final def in pianoWhiteRow)
-                    SizedBox(width: whiteW, child: KeyWidget(def)),
+                    SizedBox(width: whiteW, child: KeyWidget(def, enableSliding: false)),
                 ],
               ),
               for (final def in pianoBlackKeys)
@@ -38,7 +38,7 @@ class _PState extends State<PianoWidget> {
                   left: whiteW * def.anchor + whiteW - blackW / 2,
                   width: blackW,
                   height: blackH,
-                  child: KeyWidget(def),
+                  child: KeyWidget(def, enableSliding: false),
                 ),
             ],
           );

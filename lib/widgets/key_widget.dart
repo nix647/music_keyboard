@@ -9,7 +9,8 @@ final MidiManager _audio = MidiManager();
 
 class KeyWidget extends StatefulWidget {
   final NoteDef def;
-  const KeyWidget(this.def, {super.key});
+  final bool enableSliding;
+  const KeyWidget(this.def, {this.enableSliding = true, super.key});
 
   @override
   State<KeyWidget> createState() => _KeyWidgetState();
@@ -41,7 +42,7 @@ class _KeyWidgetState extends State<KeyWidget> {
     _pressed    = true;
     _hasPlayed  = false;
     _start      = e.position;
-    // schedule original note after 100 ms if no slide occurs
+    // schedule original note after 100 ms if no slide occurs
     _downTimer = Timer(kPressDelay, () {
       if (!_hasPlayed) _play(widget.def.midi, e.pressure);
     });
@@ -49,7 +50,7 @@ class _KeyWidgetState extends State<KeyWidget> {
   }
 
   void _onMove(PointerMoveEvent e) {
-    if (!_pressed || _hasPlayed || _start == null) return;
+    if (!_pressed || _hasPlayed || _start == null || !widget.enableSliding) return;
     final d = e.position - _start!;
 
     int octave = 0;

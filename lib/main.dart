@@ -5,19 +5,32 @@ import 'widgets/piano_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Allow either landscape side
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
+
   runApp(const App());
 }
 
 class App extends StatelessWidget {
   const App({super.key});
+
   @override
-  Widget build(BuildContext ctx) => const MaterialApp(
+  Widget build(BuildContext ctx) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        // ⬇️ force‑rotate UI if OS is still portrait
+        builder: (context, child) {
+          final orientation = MediaQuery.of(context).orientation;
+          if (orientation == Orientation.portrait) {
+            // rotate 90° clockwise so the widgets are laid out wide
+            return RotatedBox(quarterTurns: 1, child: child);
+          }
+          return child!;
+        },
+        home: const HomePage(),
       );
 }
 
@@ -29,7 +42,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _piano = false;
-
   void _toggle() => setState(() => _piano = !_piano);
 
   @override
@@ -38,14 +50,15 @@ class _HomePageState extends State<HomePage> {
           child: Stack(
             children: [
               Positioned.fill(
-                child: _piano ? const PianoWidget() : const KeyboardWidget(),
+                child: _piano ? const PianoWidget()
+                              : const KeyboardWidget(),
               ),
               Positioned(
                 top: 8,
                 right: 8,
                 child: IconButton(
                   icon: const Icon(Icons.flip_camera_android),
-                  color: Colors.black,
+                  tooltip: 'Switch Keyboard',
                   onPressed: _toggle,
                 ),
               ),
