@@ -22,9 +22,12 @@ class MidiManager {
 
     // 3. Ask the engine to load that sound‑font
     _sfId = await _midi.loadSoundfont(path: file.path, bank: 0, program: 0);
+    print('sfId = $_sfId');
+
   }
 
   void noteOn(int midi, double pressure) {
+    print('noteOn: $midi, $pressure');
     if (_sfId == null) return;
     final vel = (pressure * 127).clamp(15, 127).toInt();
     _midi.playNote(sfId: _sfId!, channel: 0, key: midi, velocity: vel);

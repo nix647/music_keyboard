@@ -17,7 +17,7 @@ class _KState extends State<KeyboardWidget> {
           final w = c.maxWidth;
           final h = c.maxHeight;
           final whiteW = w / whiteRow.length;
-          final blackW = whiteW * .6;
+          final blackW = whiteW * 1;
           final blackH = h * .55;
           return Stack(
             children: [
