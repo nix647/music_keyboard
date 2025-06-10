@@ -42,7 +42,7 @@ class _KeyWidgetState extends State<KeyWidget> {
     _pressed    = true;
     _hasPlayed  = false;
     _start      = e.position;
-    // schedule original note after 100 ms if no slide occurs
+    // schedule original note after delay if no slide occurs
     _downTimer = Timer(kPressDelay, () {
       if (!_hasPlayed) _play(widget.def.midi, e.pressure);
     });
@@ -56,11 +56,18 @@ class _KeyWidgetState extends State<KeyWidget> {
     int octave = 0;
     int semi   = 0;
 
+    // Check for vertical (octave) movement first
     if (d.dy <= -kSlideSensitivity) octave =  12;   // up
     else if (d.dy >=  kSlideSensitivity) octave = -12; // down
 
-    if (d.dx <= -kSlideSensitivity) semi = -1;      // left
-    else if (d.dx >=  kSlideSensitivity) semi =  1; // right
+    // Determine the horizontal sensitivity. If sliding vertically, it's easier to slide horizontally.
+    final horizontalSensitivity = octave != 0
+        ? kSlideSensitivity * kDiagonalSensitivityFactor
+        : kSlideSensitivity;
+
+    // Check for horizontal (semitone) movement with the determined sensitivity
+    if (d.dx <= -horizontalSensitivity) semi = -1;      // left
+    else if (d.dx >=  horizontalSensitivity) semi =  1; // right
 
     if (octave != 0 || semi != 0) {
       _downTimer?.cancel();            // cancel delayed tap
@@ -106,4 +113,4 @@ class _KeyWidgetState extends State<KeyWidget> {
       ),
     );
   }
-}   
+}
