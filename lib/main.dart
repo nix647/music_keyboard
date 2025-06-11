@@ -4,6 +4,7 @@ import 'widgets/keyboard_widget.dart';
 import 'widgets/piano_widget.dart';
 import 'widgets/quadrant_keyboard_widget.dart';
 import 'widgets/buttoned_keyboard.dart'; // Import the new keyboard
+import 'services/midi_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,9 @@ Future<void> main() async {
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
+
+  // Load the sound font once at startup
+  await MidiManager().init();
 
   runApp(const App());
 }
