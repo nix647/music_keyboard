@@ -10,11 +10,6 @@ class PianoWidget extends StatefulWidget {
 }
 
 class _PState extends State<PianoWidget> {
-  @override
-  void initState() {
-    super.initState();
-    MidiManager().init();
-  }
 
   @override
   Widget build(BuildContext ctx) => LayoutBuilder(

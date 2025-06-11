@@ -18,11 +18,6 @@ class QuadrantKeyboardWidget extends StatefulWidget {
 }
 
 class _QuadrantKeyboardWidgetState extends State<QuadrantKeyboardWidget> {
-  @override
-  void initState() {
-    super.initState();
-    MidiManager().init();
-  }
 
   @override
   Widget build(BuildContext ctx) => LayoutBuilder(

@@ -10,8 +10,11 @@ class MidiManager {
 
   final MidiPro _midi = MidiPro();
   int? _sfId; // sound‑font id after loading
+  bool _initialized = false;
 
   Future<void> init() async {
+    if (_initialized) return; // avoid re-loading the sound font
+
     // 1. Load the bundled SF2 bytes
     final data = await rootBundle.load('assets/sf2/Piano.sf2');
 
@@ -24,6 +27,7 @@ class MidiManager {
     _sfId = await _midi.loadSoundfont(path: file.path, bank: 0, program: 0);
     print('sfId = $_sfId');
 
+    _initialized = true;
   }
 
   void noteOn(int midi, double pressure) {

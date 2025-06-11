@@ -18,11 +18,6 @@ class KeyboardWidget extends StatefulWidget {
 }
 
 class _KState extends State<KeyboardWidget> {
-  @override
-  void initState() {
-    super.initState();
-    MidiManager().init();
-  }
 
   @override
   Widget build(BuildContext ctx) => LayoutBuilder(
