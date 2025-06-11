@@ -36,7 +36,7 @@ class _ButtonedKeyboardWidgetState extends State<ButtonedKeyboardWidget> {
     noteInfo.timer?.cancel(); // Cancel any pending timer
 
     int semitoneShift = (_sharpPressed ? 1 : 0) - (_flatPressed ? 1 : 0);
-    final midi = noteInfo.def.midi + (_octaveShift * 12) + semitoneShift;
+    final midi = noteInfo.def.midi + (_octaveShift * -12) + semitoneShift; ////downward higher
     
     // If a note for this pointer is already playing, stop it first
     if (_playingNotes.containsKey(pointerId)) {
@@ -59,7 +59,7 @@ class _ButtonedKeyboardWidgetState extends State<ButtonedKeyboardWidget> {
   }
 
   void _handleNoteDown(int pointerId, ButtonedNoteDef def) {
-    final timer = Timer(kPressDelay, () => _playNoteForPointer(pointerId));
+    final timer = Timer(kPressDelayB, () => _playNoteForPointer(pointerId));
     _activePointers[pointerId] = (def: def, timer: timer);
     setState(() {});
   }
@@ -217,9 +217,9 @@ class _ButtonedKeyboardWidgetState extends State<ButtonedKeyboardWidget> {
     final bool isActive = _activePointers.values.any((info) => info.def == def);
     
     String label = def.label;
-    if (_octaveShift == 1) {
+    if (_octaveShift == -1) { //downward higher
       label = '˙\n${def.label}';
-    } else if (_octaveShift == -1) {
+    } else if (_octaveShift == 1) {
       label = '${def.label}\n.';
     }
 
